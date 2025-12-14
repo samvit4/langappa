@@ -1,0 +1,138 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.card {
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.3s;
+  color: #333;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.card.flipped {
+  background-color: #e3f2fd; /* Light blue for Telugu side */
+  border: 2px solid #2196f3;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.english-word {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.telugu-word {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #d32f2f;
+}
+
+.hint {
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 1rem;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.counter {
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+}
+
+button {
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+/* New Menu Styles */
+.menu-buttons {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.menu-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 2rem;
+  font-size: 1.5rem;
+  min-width: 200px;
+  background-color: white;
+  color: #333;
+  border: 2px solid #ddd;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.menu-btn span {
+  font-size: 0.9rem;
+  color: #666;
+  font-weight: normal;
+}
+
+.menu-btn:hover {
+  border-color: #646cff;
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.back-button {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: transparent;
+  border: none;
+  color: #666;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.back-button:hover {
+  color: #333;
+  text-decoration: underline;
+}
+
+.deck-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+}
