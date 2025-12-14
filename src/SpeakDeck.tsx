@@ -18,10 +18,16 @@ export default function SpeakDeck({ language, onBack }: SpeakDeckProps) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const filename = language === 'telugu' ? '/sentences.csv' : '/german_sentences.csv';
+    const filename = language === 'telugu' ? 'sentences.csv' : 'german_sentences.csv';
+    const fullPath = `${import.meta.env.BASE_URL}${filename}`;
 
-    fetch(filename)
-      .then((response) => response.text())
+    fetch(fullPath)
+      .then((response) => {
+         if (!response.ok) {
+           throw new Error('Network response was not ok');
+         }
+         return response.text();
+      })
       .then((text) => {
         const lines = text.split('\n');
         const parsedData: SentencePair[] = [];

@@ -19,10 +19,16 @@ export default function VocabDeck({ language, onBack }: VocabDeckProps) {
 
   useEffect(() => {
     // Determine file based on language
-    const filename = language === 'telugu' ? '/words.csv' : '/german_words.csv';
+    const filename = language === 'telugu' ? 'words.csv' : 'german_words.csv';
+    const fullPath = `${import.meta.env.BASE_URL}${filename}`;
 
-    fetch(filename)
-      .then((response) => response.text())
+    fetch(fullPath)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.text();
+      })
       .then((text) => {
         const lines = text.split('\n');
         const parsedWords: WordPair[] = [];
