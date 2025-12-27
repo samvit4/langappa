@@ -18,7 +18,7 @@ export default function SpeakDeck({ language, onBack }: SpeakDeckProps) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const filename = language === 'telugu' ? 'sentences.csv' : 'german_sentences.csv';
+    const filename = language === 'telugu' ? 'telugu_sentences.csv' : 'german_sentences.csv';
     const fullPath = `${import.meta.env.BASE_URL}${filename}`;
 
     fetch(fullPath)

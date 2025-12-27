@@ -19,7 +19,7 @@ export default function VocabDeck({ language, onBack }: VocabDeckProps) {
 
   useEffect(() => {
     // Determine file based on language
-    const filename = language === 'telugu' ? 'words.csv' : 'german_words.csv';
+    const filename = language === 'telugu' ? 'telugu_words.csv' : 'german_words.csv';
     const fullPath = `${import.meta.env.BASE_URL}${filename}`;
 
     fetch(fullPath)
@@ -30,14 +30,76 @@ export default function VocabDeck({ language, onBack }: VocabDeckProps) {
         return response.text();
       })
       .then((text) => {
-        const lines = text.split('\n');
+        // CSV parsing that handles quoted fields with commas inside quotes
+        // Strip out trailing newlines, if any
+        const lines = text.replace(/\r/g, '').split('\n').filter(line => line.trim().length > 0);
+        if (lines.length < 2) {
+          setWords([]);
+          setLoading(false);
+          return;
+        }
+
+        // Helper to split CSV line by commas, handling quoted fields
+        function parseCSVLine(line: string): string[] {
+          const result = [];
+          let cur = '';
+          let inQuotes = false;
+          for (let i = 0; i < line.length; i++) {
+            const c = line[i];
+            if (c === '"') {
+              if (inQuotes && i + 1 < line.length && line[i + 1] === '"') {
+                // Escaped quote ("")
+                cur += '"';
+                i++;
+              } else {
+                inQuotes = !inQuotes;
+              }
+            } else if (c === ',' && !inQuotes) {
+              result.push(cur);
+              cur = '';
+            } else {
+              cur += c;
+            }
+          }
+          result.push(cur);
+          return result;
+        }
+
+        // Read header and determine column indices
+        const header = lines[0].trim();
+        const headerColumns = parseCSVLine(header);
+        let englishIdx = -1;
+        let translationIdx = -1;
+
+        // For Telugu CSV: "Word,Definition 1"
+        // For German CSV: may have different headers
+        if (language === 'telugu') {
+          englishIdx = headerColumns.findIndex(col => col.trim().toLowerCase() === 'word');
+          translationIdx = headerColumns.findIndex(col => col.trim().toLowerCase() === 'definition 1');
+        } 
+        else if (language === 'german') {
+          // Try to smartly find columns for German; look for "Word" and "Definition 1"
+          englishIdx = headerColumns.findIndex(col => col.trim().toLowerCase() === 'word');
+          translationIdx = headerColumns.findIndex(col => col.trim().toLowerCase() === 'definition 1');
+        }
+
+        // If missing headers, show nothing
+        if (englishIdx === -1 || translationIdx === -1) {
+          setWords([]);
+          setLoading(false);
+          return;
+        }
+
         const parsedWords: WordPair[] = [];
         for (let i = 1; i < lines.length; i++) {
           const line = lines[i].trim();
           if (line) {
-            const [english, translation] = line.split(',');
-            if (english && translation) {
-              parsedWords.push({ English: english.trim(), Translation: translation.trim() });
+            const cols = parseCSVLine(line);
+            if (cols.length > Math.max(englishIdx, translationIdx)) {
+              parsedWords.push({
+                English: cols[translationIdx].trim() || '',
+                Translation: cols[englishIdx].trim() || ''
+              });
             }
           }
         }
