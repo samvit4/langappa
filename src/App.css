@@ -136,3 +136,22 @@ button {
   gap: 2rem;
   width: 100%;
 }
+
+.about-section {
+  max-width: 500px;
+  padding: 1rem 1.5rem;
+  margin-top: 2rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.about-section h2 {
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+}
+
+.about-section p {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0;
+}

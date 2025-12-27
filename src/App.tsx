@@ -24,18 +24,14 @@ function App() {
     return (
       <div className="container">
         <button className="back-button" onClick={() => setLanguage(null)}>← Back to Languages</button>
-        <h1> učen: {language.charAt(0).toUpperCase() + language.slice(1)}</h1>
-        <p>Choose your learning path:</p>
         
         <div className="menu-buttons">
           <button className="menu-btn" onClick={() => setMode('vocab')}>
-            📚 Vocabulary
-            <span>Words & Flashcards</span>
+            Vocabulary
           </button>
           
           <button className="menu-btn" onClick={() => setMode('speak')}>
-            🗣️ Speak
-            <span>Phrases & Sentences</span>
+            Speaking
           </button>
         </div>
       </div>
@@ -45,19 +41,23 @@ function App() {
   // Default: Show Language Selection
   return (
     <div className="container">
-      <h1>LangAppa</h1>
-      <p>Select a language to learn:</p>
       
       <div className="menu-buttons">
         <button className="menu-btn" onClick={() => setLanguage('telugu')}>
-          🕉️ Telugu
-          <span>Dravidian Language</span>
+           Telugu
         </button>
         
         <button className="menu-btn" onClick={() => setLanguage('german')}>
-          🇩🇪 German
-          <span>Deutsch</span>
+          German
         </button>
+      </div>
+
+      <div className="about-section">
+        <h2>About</h2>
+        <p>
+          There was a point in time where I was set on learning German through my own ways. I have reached a point where I am reasonably comfortable with the language but want to get better at it. 
+          Unable to find an app that suits my style, I decided to build my own website. 
+        </p>
       </div>
     </div>
   );

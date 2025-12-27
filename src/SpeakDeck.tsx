@@ -67,7 +67,6 @@ export default function SpeakDeck({ language, onBack }: SpeakDeckProps) {
   return (
     <div className="deck-container">
       <button className="back-button" onClick={onBack}>← Back</button>
-      <h2>{language.charAt(0).toUpperCase() + language.slice(1)} Speak Mode</h2>
       
       <div 
         className={`card ${showTranslation ? 'flipped' : ''}`} 

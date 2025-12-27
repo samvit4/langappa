@@ -66,7 +66,6 @@ export default function VocabDeck({ language, onBack }: VocabDeckProps) {
   return (
     <div className="deck-container">
       <button className="back-button" onClick={onBack}>← Back</button>
-      <h2>{language.charAt(0).toUpperCase() + language.slice(1)} Vocabulary</h2>
       
       <div 
         className={`card ${showTranslation ? 'flipped' : ''}`} 
